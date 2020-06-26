@@ -6,7 +6,7 @@ Ascii art created in pure Javascript (and a little bit of HTML/CSS)
 
 ## Controls
 
-**Any keyboard key** : change chracter
+**Any keyboard key** : change character
 
 **Lbutton :** draw
 
