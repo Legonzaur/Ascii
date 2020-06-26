@@ -102,7 +102,7 @@ content.addEventListener("mousedown", function (e) {
 
 content.addEventListener("mouseup", mouseUp);
 
-document.addEventListener("keydown", function (e) {
+document.addEventListener("keydown", async function (e) {
   //history shit
   if (e.ctrlKey == true) {
     switch (e.key) {
@@ -116,7 +116,16 @@ document.addEventListener("keydown", function (e) {
         drawGrid = forwards ? forwards : drawGrid;
         render();
         break;
-
+      case "s":
+        e.preventDefault();
+        download("ascii.txt", JSON.stringify(drawGrid));
+        break;
+      case "o":
+        e.preventDefault();
+        text = await upload();
+        drawGrid = JSON.parse(text);
+        render();
+        break;
       default:
         break;
     }
