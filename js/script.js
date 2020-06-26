@@ -13,9 +13,21 @@ var width = test.getBoundingClientRect().width;
 
 var drawGrid = [];
 
-var drawHistory = {
-  forward: [],
-  backward: [],
+const drawHistory = {
+  forwardData: [],
+  backwardData: [],
+  forwards: function () {
+    if (this.forward[0]) {
+      this.backward.unshift(JSON.stringify(drawGrid));
+      return JSON.parse(this.forward.shift());
+    }
+  },
+  backwards: function () {
+    if (this.backward[0]) {
+      this.forward.unshift(JSON.stringify(drawGrid));
+      return JSON.parse(this.backward.shift());
+    }
+  },
 };
 
 var textify = new Worker("./js/textify.js");
@@ -54,14 +66,16 @@ content.addEventListener("mousedown", function (e) {
   content.addEventListener("mousemove", moveMouse);
   let x = Math.floor(e.clientX / width);
   let y = Math.floor(e.clientY / height);
-  drawHistory.backward.unshift(JSON.stringify(drawGrid));
-  drawHistory.forward = [];
+  //adding to history
+  drawHistory.backwardData.unshift(JSON.stringify(drawGrid));
+  drawHistory.forwardData = [];
   if (e.shiftKey) {
     drawLine(previousX, previousY, x, y);
   }
   if (e.ctrlKey) {
     fill(x, y);
   }
+  drawPoint(x, y);
   previousX = x;
   previousY = y;
   render();
@@ -70,24 +84,18 @@ content.addEventListener("mousedown", function (e) {
 content.addEventListener("mouseup", mouseUp);
 
 document.addEventListener("keydown", function (e) {
+  //history shit
   if (e.ctrlKey == true) {
-    console.log(drawHistory.backward.length);
     switch (e.key) {
       case "z":
-        if (drawHistory.backward[0]) {
-          drawHistory.forward.unshift(JSON.stringify(drawGrid));
-          drawGrid = JSON.parse(drawHistory.backward.shift());
-          render();
-        }
-
+        let backwards = drawHistory.backwards();
+        drawGrid = backwards ? backwards : drawGrid;
+        render();
         break;
       case "y":
-        if (drawHistory.forward[0]) {
-          drawHistory.backward.unshift(JSON.stringify(drawGrid));
-          drawGrid = JSON.parse(drawHistory.forward.shift());
-          render();
-        }
-
+        let forwards = drawHistory.forwards();
+        drawGrid = forwards ? forwards : drawGrid;
+        render();
         break;
 
       default:
@@ -95,6 +103,7 @@ document.addEventListener("keydown", function (e) {
     }
     return;
   }
+  //chage pencil
   if (e.key.length == 1) {
     pencil = e.key;
   }
