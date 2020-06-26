@@ -6,17 +6,17 @@ Paint-like with Ascii characters created in pure Javascript (and a little bit of
 
 ## Controls
 
-**Any keyboard key** : change character
+**Any keyboard key** : Change character
 
-**Lbutton :** draw
+**Lbutton :** Draw
 
-**SHIFT + Lclick :** draw Line
+**SHIFT + Lclick :** Draw line
 
-**CTRL + Lclick :** fill (does not checks diagonals)
+**CTRL + Lclick :** Fill (does not checks diagonals)
 
 **CTRL + Z :** Go back
 
-**CTRL + Y :** Go Forth (only available if you gone back)
+**CTRL + Y :** Go forth (only available if you gone back)
 
 **CTRL + S :** Save current image into a reusable txt file
 
