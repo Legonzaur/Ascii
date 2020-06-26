@@ -1,7 +1,5 @@
 const content = document.getElementById("content");
 
-const title = document.querySelector("title");
-
 var pencil = "o";
 
 var fontSize = parseFloat(
@@ -26,7 +24,7 @@ const drawHistory = {
   },
   set forwardData(value) {
     this.__forwardData = value;
-    title.innerHTML = `B:${this.__backwardData.length} F:${this.__forwardData.length}`;
+    // title.innerHTML = `B:${this.__backwardData.length} F:${this.__forwardData.length}`;
   },
   set backwardData(value) {
     this.__backwardData = value;
@@ -34,18 +32,18 @@ const drawHistory = {
   forwards: function () {
     if (this.forwardData[0]) {
       this.backwardData.unshift(JSON.stringify(drawGrid));
-      title.innerHTML = `B:${this.__backwardData.length} F:${
-        this.__forwardData.length - 1
-      }`;
+      // title.innerHTML = `B:${this.__backwardData.length} F:${
+      //   this.__forwardData.length - 1
+      // }`;
       return JSON.parse(this.forwardData.shift());
     }
   },
   backwards: function () {
     if (this.backwardData[0]) {
       this.forwardData.unshift(JSON.stringify(drawGrid));
-      title.innerHTML = `B:${this.__backwardData.length - 1} F:${
-        this.__forwardData.length
-      }`;
+      // title.innerHTML = `B:${this.__backwardData.length - 1} F:${
+      //   this.__forwardData.length
+      // }`;
       return JSON.parse(this.backwardData.shift());
     }
   },
