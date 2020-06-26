@@ -17,15 +17,15 @@ const drawHistory = {
   forwardData: [],
   backwardData: [],
   forwards: function () {
-    if (this.forward[0]) {
-      this.backward.unshift(JSON.stringify(drawGrid));
-      return JSON.parse(this.forward.shift());
+    if (this.forwardData[0]) {
+      this.backwardData.unshift(JSON.stringify(drawGrid));
+      return JSON.parse(this.forwardData.shift());
     }
   },
   backwards: function () {
-    if (this.backward[0]) {
-      this.forward.unshift(JSON.stringify(drawGrid));
-      return JSON.parse(this.backward.shift());
+    if (this.backwardData[0]) {
+      this.forwardData.unshift(JSON.stringify(drawGrid));
+      return JSON.parse(this.backwardData.shift());
     }
   },
 };
